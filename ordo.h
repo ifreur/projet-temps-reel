@@ -7,5 +7,5 @@ typedef struct Process
 }Process;
 
 int* fp_compute(Process* myProcess,int lenProcess,int timeMax);
-void read_folder(char* filePath,Process** myProcess,int * lenProcess);
+void read_file(char* filePath,Process** myProcess,int * lenProcess);
 int* edf_compute(Process* myProcess,int lenProcess, int timeMax);

@@ -4,7 +4,7 @@
 #include "ordo.h"
 #include "lib_sorted_job_list/sorted_job_list.h"
 
-void read_folder(char* filePath, Process** myProcess,int * lenProcess){
+void read_file(char* filePath, Process** myProcess,int * lenProcess){
     FILE * file = fopen(filePath,"r");
     fscanf(file,"%d",lenProcess);
     *myProcess = malloc((*lenProcess) * sizeof(Process) );

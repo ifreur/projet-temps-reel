@@ -5,7 +5,7 @@ int main(int argc, char *argv[]){
 
     int tlen;
     Process* myprocess;
-    read_folder("input",&myprocess,&tlen);
+    read_file("input",&myprocess,&tlen);
     for(int j = 0 ; j < tlen ; j++){
         printf("%d %d %d\n",myprocess[j].C,myprocess[j].D,myprocess[j].T );
     }

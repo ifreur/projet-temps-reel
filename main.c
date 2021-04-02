@@ -6,7 +6,7 @@
 int main(){
     int tlen;
     Process* myprocess;
-    read_folder("input",&myprocess,&tlen);
+    read_file("input",&myprocess,&tlen);
     edf_compute(myprocess,tlen,40);
     
 }
