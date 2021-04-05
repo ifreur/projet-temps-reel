@@ -61,3 +61,46 @@ int isDM(Tasksets task , int num){
     }
     return(0);
 }
+
+int get_busy_period(Tasksets task, int i,int t){
+    // Probleme pour le moment, comprends pas l'énoncé 
+    int bpi = 0;
+
+    for(int k = 0 ; k < i ; k++){
+        bpi += ( (int) ceil((double) t/ (double) task[k].T) ) * task[k].C ;
+    }
+    if(bpi > t)
+        return t;
+    return bpi;
+}
+
+
+
+int get_nb_critical_job(Tasksets task, int i , int bp){
+    return(( (int) ceil((double) bp/ (double) task[i-1].T) ));
+}
+
+int get_response_time(Tasksets task,int tlen, int i, int k){
+    int t_max = (k+1) * task[i-1].T; 
+    int t = k * task[i-1].T; 
+    int c = task[i-1].C;
+
+    int * tab = fp_compute(task,tlen,t_max);
+    printf("time: %d %d Tablo :\n",t_max,t);
+
+    for(int j = 0; j < task[i-1].T; j++){
+        printf("[ %d %d ]",tab[t+j],t+j);
+
+        if(tab[t+j] == i )
+            c--;
+
+        if(c == 0)
+            return j+1;
+    }
+    return -1;
+}
+
+int get_worst_case_response_time(Tasksets task, int i){
+
+}
+
