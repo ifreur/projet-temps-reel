@@ -4,7 +4,8 @@ typedef struct Process
     int C;
     int D;
     int T;
-}Process;
+
+} Process;
 
 
 int* fp_compute(Process* myProcess,int lenProcess,int timeMax);
