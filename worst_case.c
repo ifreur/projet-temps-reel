@@ -101,6 +101,15 @@ int get_response_time(Tasksets task, int i, int k){
 }
 
 int get_worst_case_response_time(Tasksets task, int i){
+    int busy_period = get_busy_period(task,i);
+    int nb_job = get_nb_critical_job(task,i,busy_period);
 
+    int worst_time = 0;
+    int tmp;
+    for(int j = 1; j <= nb_job ; j++){
+        tmp = get_response_time(task,i,j);
+        if(tmp > worst_time)
+            worst_time = tmp;
+    }
+    return worst_time;
 }
-

@@ -29,5 +29,8 @@ int main(){
     tr = get_response_time(myprocess,3,1);
     printf("T rep 3 2 : %d \n",tr);
 
+    int wt = get_worst_case_response_time(myprocess,2);
+    printf("Worst time %d\n",wt);
+
 
 }
