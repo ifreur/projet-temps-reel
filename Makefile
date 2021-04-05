@@ -1,18 +1,18 @@
 CC=gcc
-CFLAG=-Wall
+CFLAGS=-Wall -lm
 EXEC=make_proj main drawing clean
 SRC=$(wildcard *.c)
 OBJ=$(SRC:.c=.o)
-DRAWFLAG= `pkg-config --cflags --libs MagickWand`
+DRAWFLAG= `pkg-config --cflags --libs MagickWand`  -lm
 
 
 all: $(EXEC)
 
 main: $(OBJ) lib_sorted_job_list/sorted_job_list.o
-	$(CC) -o $@ $^ 
+	$(CC) -o $@ $^  $(CFLAGS)
 
-%.o: %.c ordo.h
-	$(CC) -o $@ -c $< $(CFLAGS)
+%.o: %.c ordo.h worst_case.h
+	$(CC) -o $@ -c $< 
 
 drawing: graph/draw.o ordo.o lib_sorted_job_list/sorted_job_list.o
 	$(CC) -o $@ $^ $(DRAWFLAG)
