@@ -14,8 +14,8 @@ int main(int argc, char *argv[]){
     int nb_process = tlen;
     int time = atoi(argv[1]);
     int *tab;
-   // tab = fp_compute(myprocess,tlen,time);
-    tab = edf_compute(myprocess,tlen,time);
+    tab = fp_compute(myprocess,tlen,time);
+   // tab = edf_compute(myprocess,tlen,time);
 
 
 
