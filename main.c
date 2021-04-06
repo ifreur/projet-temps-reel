@@ -7,7 +7,7 @@ int main(){
     int tlen;
     Process* myprocess;
     read_file("input",&myprocess,&tlen);
-    //edf_compute(myprocess,tlen,40);
+    fp_compute(myprocess,tlen,40);
 
     printf("%d\n",test_load(myprocess,tlen));
 
@@ -26,11 +26,17 @@ int main(){
     printf("T rep 1 1 : %d \n",tr);
     tr = get_response_time(myprocess,2,1);
     printf("T rep 2 2 : %d \n",tr);
-    tr = get_response_time(myprocess,3,1);
+    tr = get_response_time(myprocess,2,1);
     printf("T rep 3 2 : %d \n",tr);
 
     int wt = get_worst_case_response_time(myprocess,2);
-    printf("Worst time %d\n",wt);
+    printf("Worst time 2 %d\n",wt);
+
+    wt = get_worst_case_response_time(myprocess,1);
+    printf("Worst time 1 %d\n",wt);
+
+    wt = get_worst_case_response_time(myprocess,3);
+    printf("Worst time 3 %d\n",wt);
 
 
 }

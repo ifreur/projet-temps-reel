@@ -97,7 +97,7 @@ int get_response_time(Tasksets task, int i, int k){
         }
         Fi +=  (k * task[i-1].C);
     }
-    return Fi ;
+    return Fi -activation ;
 }
 
 int get_worst_case_response_time(Tasksets task, int i){
