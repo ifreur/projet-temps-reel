@@ -4,18 +4,18 @@
 #include <math.h>
 #include "worst_case.h"
 
-int test_load(Tasksets task,int num){
+int test_load(Tasksets task,int task_lenght){
 
-    if(test_inferior_equal(task,num) == 0){
+    if(test_inferior_equal(task,task_lenght) == 0){
         
-        if(test_equal(task,num) == 1 && isDM(task,num) == 1){
+        if(test_equal(task,task_lenght) == 1 && isDM(task,task_lenght) == 1){
             printf("TODO : implement DM file change");
             exit(-1);
         }
 
-        int border = num * ( pow( (double) 2 , 1/num ) - 1);
+        int border = task_lenght * ( pow( (double) 2 , 1/task_lenght ) - 1);
         int U = 0;
-        for(int i = 0; i < num ; i++)
+        for(int i = 0; i < task_lenght ; i++)
             U += task[i].C / task[i].D;
         // Etant donné que dans RM, D=T, on peut généralisé la condition suffisante de DM . 
 
@@ -23,20 +23,20 @@ int test_load(Tasksets task,int num){
             return 1;
         else 
             if (U <= 1)
-                return -1;
-            else
                 return 0;
+            else
+                return -1;
 
     }
     else{
-        printf("some D > T\n");            
-
+        printf("some D > T \n");            
+        printf("TODO : implement file change");
     } 
-    return 1;
+    return -2; 
 }
 
-int test_inferior_equal(Tasksets task,int num){
-    for(int i = 0; i < num; i++){
+int test_inferior_equal(Tasksets task,int task_lenght){
+    for(int i = 0; i < task_lenght; i++){
         if(task[i].D > task[i].T){
             return(1);
         }
@@ -44,18 +44,18 @@ int test_inferior_equal(Tasksets task,int num){
     return(0);
 }
 
-int test_equal(Tasksets task,int num){
+int test_equal(Tasksets task,int task_lenght){
 
-    for(int i = 0; i < num; i++){
-        if(task[i].D < task[i].T){
+    for(int i = 0; i < task_lenght; i++){
+        if(task[i].D != task[i].T){
             return(1);
         }
     }
     return(0);
 }
 
-int isDM(Tasksets task , int num){
-    for(int i = 0; i < num -1 ; i++){
+int isDM(Tasksets task , int task_lenght){
+    for(int i = 0; i < task_lenght -1 ; i++){
         if(task[i].D > task[i+1].D)
             return(1);
     }
