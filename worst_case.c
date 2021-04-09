@@ -113,3 +113,40 @@ int get_worst_case_response_time(Tasksets task, int i){
     }
     return worst_time;
 }
+
+int get_response_time_preemptive(Tasksets task, int len, int i, int k){
+    int activation = (k-1) * task[i-1].T;
+
+    int Fi = 1;
+    int t = 0;
+
+    int B = task[i].C;
+    for(int j = 1 ; j < len; j++)
+        if(task[i].C > B)
+            B = task[i].C;
+
+    while(t != Fi){
+
+        t = Fi;
+        Fi = 0;
+        for(int x = 0 ; x < (i-1) ; x++){
+            Fi += (( ( (int) ceil((double) t + 1 )/ (double) task[x].T) ) * task[x].C )  ;
+        }
+        Fi +=  (k * task[i-1].C) + B;
+    }
+    return Fi -activation ;
+}
+
+int get_worst_case_response_time_preemptive(Tasksets task,int len, int i){
+    int busy_period = get_busy_period(task,i);
+    int nb_job = get_nb_critical_job(task,i,busy_period);
+
+    int worst_time = 0;
+    int tmp;
+    for(int j = 1; j <= nb_job ; j++){
+        tmp = get_response_time_preemptive(task,len,i,j) + task[i].C - (j*task[i].T);
+        if(tmp > worst_time)
+            worst_time = tmp;
+    }
+    return worst_time;
+}

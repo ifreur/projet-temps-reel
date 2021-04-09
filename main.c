@@ -26,7 +26,7 @@ int main(){
     printf("T rep 1 1 : %d \n",tr);
     tr = get_response_time(myprocess,2,1);
     printf("T rep 2 2 : %d \n",tr);
-    tr = get_response_time(myprocess,2,1);
+    tr = get_response_time(myprocess,3,1);
     printf("T rep 3 2 : %d \n",tr);
 
     int wt = get_worst_case_response_time(myprocess,2);
@@ -37,6 +37,15 @@ int main(){
 
     wt = get_worst_case_response_time(myprocess,3);
     printf("Worst time 3 %d\n",wt);
+
+    int bt = get_worst_case_response_time_preemptive(myprocess,tlen,2);
+    printf("Pre time 2 %d\n",bt);
+
+     bt = get_worst_case_response_time_preemptive(myprocess,tlen,1);
+    printf("Pre time 1 %d\n",bt);
+
+     bt = get_worst_case_response_time_preemptive(myprocess,tlen,3);
+    printf("Pre time 3 %d\n",bt);
 
 
 }
