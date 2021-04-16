@@ -4,19 +4,19 @@
 #include <math.h>
 #include "worst_case.h"
 
-int test_load(Tasksets task,int task_lenght){
+int test_load(Tasksets * task,int task_lenght){
 
-    if(test_inferior_equal(task,task_lenght) == 0){
+    if(test_inferior_equal(*task,task_lenght) == 0){
         
-        if(test_equal(task,task_lenght) == 1 && isDM(task,task_lenght) == 1){
-            printf("TODO : implement DM file change");
-            exit(-1);
+        if(test_equal(*task,task_lenght) == 1 && isDM(*task,task_lenght) == 1){
+            printf("Ordonnecement par date de fin");
+            ordo_taskset_bydeadline(task,task_lenght);
         }
 
         int border = task_lenght * ( pow( (double) 2 , 1/task_lenght ) - 1);
         int U = 0;
         for(int i = 0; i < task_lenght ; i++)
-            U += task[i].C / task[i].D;
+            U += (*task)[i].C / (*task)[i].D;
         // Etant donné que dans RM, D=T, on peut généralisé la condition suffisante de DM . 
 
         if(U <= border)
@@ -29,8 +29,9 @@ int test_load(Tasksets task,int task_lenght){
 
     }
     else{
-        printf("some D > T \n");            
-        printf("TODO : implement file change");
+        printf("Reajuste Deadlines");
+        adjust_taskset_deadline(task ,task_lenght);
+        return test_load(task,task_lenght);
     } 
     return -2; 
 }
@@ -149,4 +150,27 @@ int get_worst_case_response_time_preemptive(Tasksets task,int len, int i){
             worst_time = tmp;
     }
     return worst_time;
+}
+
+void ordo_taskset_bydeadline(Tasksets * task , int len){
+    Process tmp;
+    int i,j;
+
+    for(i=0;i<len-1;i++)
+
+        for(j=i+1;j<len;j++)
+
+            if ( (*task)[i].D > (*task)[j].D ) {
+                tmp = (*task)[i];
+                (*task)[i] = (*task)[j];
+                (*task)[j] = tmp;
+            }
+    }
+
+void adjust_taskset_deadline(Tasksets * task , int len){
+
+    for(int i =0; i < len ; i++){
+        if( (*task)[i].D > (*task)[i].T )
+            (*task)[i].D = (*task)[i].T;
+    }
 }

@@ -9,7 +9,8 @@ int main(){
     read_file("input",&myprocess,&tlen);
     fp_compute(myprocess,tlen,40);
 
-    printf("%d\n",test_load(myprocess,tlen));
+    printf("%d\n",test_load(&myprocess,tlen));
+
 
     int bp = get_busy_period(myprocess,1);
     printf("Busy Period 1: %d \n",bp);
