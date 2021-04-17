@@ -18,6 +18,9 @@ int* fp_compute(Process* myProcess,int lenProcess,int timeMax){
     int stateProcess[lenProcess] ;
     memset(stateProcess,0,lenProcess);
 
+    for(int j = 0 ; j < lenProcess ; j++)
+        stateProcess[j] = 0;
+
     //Drawing
     int *tab = malloc(sizeof(int)*timeMax);
 
@@ -28,6 +31,7 @@ int* fp_compute(Process* myProcess,int lenProcess,int timeMax){
             if(t%myProcess[i].T == 0)
                 stateProcess[i] += myProcess[i].C ;
         }
+
 
         //Compute 
         for(int i = 0; i < lenProcess+1 ; i++){
