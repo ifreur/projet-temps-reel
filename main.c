@@ -3,50 +3,63 @@
 #include <string.h>
 #include "worst_case.h"
 
-int main(){
+int main(int argc, char *argv[]){ // File Name, scheduling type, lenght
+
+    if(argc != 4){
+        printf("Invalid Parameters \n");
+        exit(-1);    
+    }
+
+    int time = atoi(argv[3]) ;
+    char* type_sched = argv[2] ; 
+    char* file_name = argv[1] ;
+
     int tlen;
     Process* myprocess;
     read_file("input",&myprocess,&tlen);
-    fp_compute(myprocess,tlen,40);
 
-    printf("%d\n",test_load(&myprocess,tlen));
+    if(strcmp(type_sched,"edf") == 0){
+        printf("edf\n");
+        edf_compute(myprocess,tlen,time);
+
+    }
+    else if(strcmp(type_sched,"fp") == 0){
+        printf("fp\n");
+        fp_compute(myprocess,tlen,time);
+    }
+    else{
+        printf("Not edf/fp ! End of Program \n");
+        exit(-1);
+    }
 
 
-    int bp = get_busy_period(myprocess,1);
-    printf("Busy Period 1: %d \n",bp);
-    bp = get_busy_period(myprocess,2);
-    printf("Busy Period 1: %d \n",bp);
-    bp = get_busy_period(myprocess,3);
-    printf("Busy Period 1: %d \n",bp);
+    printf("Test Load : %d\n",test_load(&myprocess,tlen));
 
+    for(int j = 1; j <= tlen ; j++){
+        printf("-For Process %d -\n",j);
 
-    int nb_criti = get_nb_critical_job(myprocess,3,40);
-    printf("Nb instance : %d \n",nb_criti);
+        int busy = get_busy_period(myprocess,j);
+        printf("Busy Period: %d \n",busy);
 
-    int tr = get_response_time(myprocess,1,1);
-    printf("T rep 1 1 : %d \n",tr);
-    tr = get_response_time(myprocess,2,1);
-    printf("T rep 2 2 : %d \n",tr);
-    tr = get_response_time(myprocess,3,1);
-    printf("T rep 3 2 : %d \n",tr);
+        int nb_criti = get_nb_critical_job(myprocess,j,busy);
+        printf("Nb instance : %d \n",nb_criti);
+        
 
-    int wt = get_worst_case_response_time(myprocess,2);
-    printf("Worst time 2 %d\n",wt);
+    }
 
-    wt = get_worst_case_response_time(myprocess,1);
-    printf("Worst time 1 %d\n",wt);
+    printf("\n\n");
 
-    wt = get_worst_case_response_time(myprocess,3);
-    printf("Worst time 3 %d\n",wt);
+    for(int j = 1; j <= tlen ; j++){
+        int wt = get_worst_case_response_time(myprocess,j);
+        printf("Worst time %d : %d\n",j,wt);
+    }
 
-    int bt = get_worst_case_response_time_preemptive(myprocess,tlen,2);
-    printf("Pre time 2 %d\n",bt);
+    printf("\n\n");
+        
 
-     bt = get_worst_case_response_time_preemptive(myprocess,tlen,1);
-    printf("Pre time 1 %d\n",bt);
-
-     bt = get_worst_case_response_time_preemptive(myprocess,tlen,3);
-    printf("Pre time 3 %d\n",bt);
-
+    for(int j = 1; j <= tlen ; j++){
+        int wt = get_worst_case_response_time_preemptive(myprocess,tlen,j);
+        printf("Worst time preemptive %d : %d\n",j,wt);
+    }
 
 }

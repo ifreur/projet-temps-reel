@@ -3,6 +3,7 @@
 
 int main(int argc, char *argv[]){
 
+
     int tlen;
     Process* myprocess;
     read_file("input",&myprocess,&tlen);
@@ -20,7 +21,7 @@ int main(int argc, char *argv[]){
 
 
     MagickWandGenesis();
-    MagickWand *test = NewMagickWand();
+    MagickWand *image = NewMagickWand();
     
     PixelWand *c_wand = NULL;
     c_wand = NewPixelWand();
@@ -34,7 +35,7 @@ int main(int argc, char *argv[]){
     DrawSetFontSize(text_wand,60);
     char stringtmp[2];
 
-    MagickNewImage(test,400 + (100 * time) ,300 + (nb_process * 400),c_wand);
+    MagickNewImage(image,400 + (100 * time) ,300 + (nb_process * 400),c_wand);
 
     int radius = 100;
 
@@ -127,12 +128,12 @@ PushDrawingWand(d_wand);
     }
 PopDrawingWand(d_wand);
 
-	MagickDrawImage(test,d_wand);
+	MagickDrawImage(image,d_wand);
 
-    MagickDrawImage(test,text_wand);
+    MagickDrawImage(image,text_wand);
 
-    MagickWriteImage(test, "diagramme.bmp");
-    DestroyMagickWand(test);
+    MagickWriteImage(image, "diagramme.bmp");
+    DestroyMagickWand(image);
     MagickWandTerminus();
 
     free(tab);
