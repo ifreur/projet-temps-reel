@@ -1,24 +1,35 @@
 #include <wand/MagickWand.h>
+#include <string.h>
 #include "../ordo.h"
 
 int main(int argc, char *argv[]){
 
+    if(argc != 3){
+        printf("Invalid Parameters \n");
+        exit(-1);    
+    }
 
     int tlen;
     Process* myprocess;
     read_file("input",&myprocess,&tlen);
-    for(int j = 0 ; j < tlen ; j++){
-        printf("%d %d %d\n",myprocess[j].C,myprocess[j].D,myprocess[j].T );
-    }
-
 
     int nb_process = tlen;
     int time = atoi(argv[1]);
+    char * type_sched = argv[2];
     int *tab;
-    tab = fp_compute(myprocess,tlen,time);
-   // tab = edf_compute(myprocess,tlen,time);
 
-
+    if(strcmp(type_sched,"edf") == 0){
+        printf("edf\n");
+        tab = edf_compute(myprocess,tlen,time);
+    }
+    else if(strcmp(type_sched,"fp") == 0){
+        printf("fp\n");
+        tab = fp_compute(myprocess,tlen,time);
+    }
+    else{
+        printf("Not edf/fp ! End of Program \n");
+        exit(-1);
+    }
 
     MagickWandGenesis();
     MagickWand *image = NewMagickWand();
