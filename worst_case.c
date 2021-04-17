@@ -6,34 +6,29 @@
 
 int test_load(Tasksets * task,int task_lenght){
 
-    if(test_inferior_equal(*task,task_lenght) == 0){
-        
-        if(test_equal(*task,task_lenght) == 1 && isDM(*task,task_lenght) == 1){
-            printf("Ordonnecement par date de fin");
-            ordo_taskset_bydeadline(task,task_lenght);
-        }
-
-        int border = task_lenght * ( pow( (double) 2 , 1/task_lenght ) - 1);
-        int U = 0;
-        for(int i = 0; i < task_lenght ; i++)
-            U += (*task)[i].C / (*task)[i].D;
-        // Etant donné que dans RM, D=T, on peut généralisé la condition suffisante de DM . 
-
-        if(U <= border)
-            return 1;
-        else 
-            if (U <= 1)
-                return 0;
-            else
-                return -1;
-
-    }
-    else{
+    if(test_inferior_equal(*task,task_lenght) != 0){
         printf("Reajuste Deadlines");
         adjust_taskset_deadline(task ,task_lenght);
-        return test_load(task,task_lenght);
-    } 
-    return -2; 
+    }
+    
+    if(test_equal(*task,task_lenght) == 1 && isDM(*task,task_lenght) == 1){
+        printf("Ordonnecement par date de fin");
+        ordo_taskset_bydeadline(task,task_lenght);
+    }
+
+    int border = task_lenght * ( pow( (double) 2 , 1/task_lenght ) - 1);
+    int U = 0;
+    for(int i = 0; i < task_lenght ; i++)
+        U += (*task)[i].C / (*task)[i].D;
+    // Etant donné que dans RM, D=T, on peut généralisé la condition suffisante de DM . 
+
+    if(U <= border)
+        return 1;
+    else 
+        if (U <= 1)
+            return 0;
+        else
+            return -1;
 }
 
 int test_inferior_equal(Tasksets task,int task_lenght){
