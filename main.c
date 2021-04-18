@@ -18,19 +18,9 @@ int main(int argc, char *argv[]){ // File Name, scheduling type, lenght
     Process* myprocess;
     read_file("input",&myprocess,&tlen);
 
-    if(strcmp(type_sched,"edf") == 0){
-        printf("edf\n");
-        edf_compute(myprocess,tlen,time);
+    edf_compute(myprocess,tlen,time);
+/*
 
-    }
-    else if(strcmp(type_sched,"fp") == 0){
-        printf("fp\n");
-        fp_compute(myprocess,tlen,time);
-    }
-    else{
-        printf("Not edf/fp ! End of Program \n");
-        exit(-1);
-    }
 
 
     printf("Test Load : %d\n",test_load(&myprocess,tlen));
@@ -61,5 +51,5 @@ int main(int argc, char *argv[]){ // File Name, scheduling type, lenght
         int wt = get_worst_case_response_time_preemptive(myprocess,tlen,j);
         printf("Worst time preemptive %d : %d\n",j,wt);
     }
-
+*/
 }

@@ -62,7 +62,7 @@ int* edf_compute(Process* myProcess,int lenProcess, int timeMax){
 
         for(int i = 0; i < lenProcess ; i++){
             if(t%myProcess[i].T == 0)
-                add_job(&myJobs,i+1,myProcess[i].C,myProcess[i].D);
+                add_job(&myJobs,i+1,myProcess[i].C,myProcess[i].D+t);
         }
 
         tab[t] = schedule_first(&myJobs);
